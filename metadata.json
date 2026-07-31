@@ -1,0 +1,6 @@
+{
+  "name": "BUET FabLab",
+  "description": "BUET FabLab: Advanced digital fabrication, research, and innovation platform.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
