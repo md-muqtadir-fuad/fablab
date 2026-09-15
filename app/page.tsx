@@ -40,8 +40,8 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="relative z-10 -mt-12 pb-6"><div className="section-shell"><div className="grid overflow-hidden rounded-2xl bg-white shadow-[0_24px_70px_rgba(54,21,16,.18)] sm:grid-cols-2 lg:grid-cols-4">
-        {quickLinks.map((item) => <Link key={item.href} href={item.href} className="group flex items-center gap-4 border-b border-neutral-200 p-5 transition hover:bg-[#fff9f0] sm:p-6 lg:border-b-0 lg:border-r last:border-0"><span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-red-50 text-buet-red transition group-hover:bg-buet-red group-hover:text-white"><item.icon className="h-5 w-5" /></span><span className="min-w-0 flex-1 text-sm font-bold text-buet-red-dark">{item.label}</span><ArrowRight className="h-4 w-4 shrink-0 text-neutral-400 transition group-hover:translate-x-1 group-hover:text-buet-red" /></Link>)}
+      <section className="relative z-10 -mt-12 pb-6"><div className="section-shell"><div className="grid overflow-hidden border border-neutral-200 border-t-4 border-t-buet-red bg-white sm:grid-cols-2 lg:grid-cols-4">
+        {quickLinks.map((item) => <Link key={item.href} href={item.href} className="group flex items-center gap-4 border-b border-neutral-200 p-5 transition hover:bg-[#fff9f0] sm:p-6 lg:border-b-0 lg:border-r last:border-0"><span className="flex h-10 w-10 shrink-0 items-center justify-center border border-red-100 text-buet-red transition group-hover:border-buet-red group-hover:bg-buet-red group-hover:text-white"><item.icon className="h-5 w-5" /></span><span className="min-w-0 flex-1 text-sm font-bold text-buet-red-dark">{item.label}</span><ArrowRight className="h-4 w-4 shrink-0 text-neutral-400 transition group-hover:translate-x-1 group-hover:text-buet-red" /></Link>)}
       </div></div></section>
 
       <section className="py-24 lg:py-32"><div className="section-shell grid gap-14 lg:grid-cols-[.75fr_1.25fr] lg:gap-20">
