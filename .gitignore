@@ -1,8 +1,13 @@
 node_modules/
 .next/
+.next-verify/
+.next-stale-*/
 coverage/
 .DS_Store
 *.log
 *.tsbuildinfo
 .env*
 !.env.example
+.data/
+test-results/
+playwright-report/

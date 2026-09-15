@@ -2,18 +2,43 @@
 @import "tw-animate-css";
 
 @theme {
-  --color-buet-red: #7a1426;
-  --color-buet-red-dark: #4d0814;
-  --color-buet-red-light: #9f2037;
+  --color-primary-foreground: #ffffff;
+  --color-card: #ffffff;
+  --color-card-foreground: #171717;
+  --color-border: #d4d4d4;
+  --color-input: #d4d4d4;
+  --color-ring: #B5122A;
+  --color-muted: #f5f5f5;
+  --color-muted-foreground: #525252;
+  --color-accent: #f5f5f5;
+  --color-accent-foreground: #650817;
+  --color-destructive: #b91c1c;
+  --color-destructive-foreground: #ffffff;
+  --color-charcoal-dark: #171717;
+  --color-buet-red: #B5122A;
+  --color-buet-red-dark: #650817;
+  --color-buet-red-light: #D52B45;
 
   --color-status-available: #10b981; /* Emerald 500 */
   --color-status-in-use: #3b82f6; /* Blue 500 */
   --color-status-reserved: #f59e0b; /* Amber 500 */
-  --color-status-training: #7a1426;
+  --color-status-training: #B5122A;
   --color-status-maintenance: #ef4444; /* Red 500 */
 
   --font-sans: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   --font-bangla: 'Kalpurush', 'SolaimanLipi', sans-serif;
+}
+
+@layer components {
+  .form-label { @apply block text-sm font-semibold text-neutral-800; }
+  .form-field { @apply mt-2 block w-full min-w-0 rounded-xl border border-neutral-300 bg-white px-4 py-3 text-base text-neutral-900 shadow-sm transition placeholder:text-neutral-400 hover:border-neutral-400 focus:border-buet-red focus:outline-none focus:ring-4 focus:ring-red-100; }
+  .form-error { @apply rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-800; }
+  .surface { @apply rounded-2xl border border-neutral-200 bg-white p-5 shadow-[0_16px_50px_rgba(66,39,28,.07)] sm:p-8; }
+  .eyebrow { @apply text-xs font-bold uppercase tracking-[.2em] text-buet-red; }
+  .section-shell { @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
 }
 
 @layer base {
@@ -81,8 +106,32 @@
 }
 
 @layer base {
+  html {
+    overflow-x: clip;
+    scrollbar-color: #B5122A #2b060d;
+    scrollbar-width: thin;
+  }
+
+  html::-webkit-scrollbar {
+    width: 9px;
+  }
+
+  html::-webkit-scrollbar-track {
+    background: #2b060d;
+  }
+
+  html::-webkit-scrollbar-thumb {
+    border: 2px solid #2b060d;
+    border-radius: 999px;
+    background: #B5122A;
+  }
+
+  html::-webkit-scrollbar-thumb:hover {
+    background: #D52B45;
+  }
+
   body {
-    @apply bg-[#faf8f4] text-neutral-900 font-sans antialiased selection:bg-buet-red selection:text-white;
+    @apply bg-[#f7f4ef] text-neutral-900 font-sans antialiased selection:bg-buet-red selection:text-white;
   }
 
   h1, h2, h3 {

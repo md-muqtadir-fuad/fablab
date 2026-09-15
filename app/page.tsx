@@ -1,270 +1,68 @@
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
-import { 
-  ArrowRight, 
-  Settings, 
-  Microscope, 
-  Lightbulb, 
-  BookOpen, 
-  CalendarDays,
-  FileText,
-  Wrench,
-  PenTool,
-  Cpu,
-  Layers,
-  Ruler
-} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { equipmentPreview, featuredProjects, impactMetrics } from "@/data/fixtures/homepage";
+import { ArrowRight, BookOpen, CalendarDays, Cpu, Layers3, Microscope, PenTool, Settings, Wrench } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { equipmentPreview, featuredProjects } from "@/data/fixtures/homepage";
+
+const quickLinks = [
+  { icon: Settings, label: "Book equipment", href: "/equipment" },
+  { icon: BookOpen, label: "Join a training", href: "/training/register" },
+  { icon: Wrench, label: "Request fabrication", href: "/services/fabrication" },
+  { icon: CalendarDays, label: "Visit the lab", href: "/visit" },
+];
+
+const capabilities = [
+  { icon: Layers3, title: "Additive manufacturing", text: "FDM and SLA printing for models, fixtures, enclosures, and functional parts." },
+  { icon: PenTool, title: "Digital machining", text: "Laser cutting and CNC workflows for sheet, timber, composites, and precision components." },
+  { icon: Cpu, title: "Electronics and robotics", text: "PCB fabrication, assembly, embedded systems, sensing, and mechatronic development." },
+  { icon: Microscope, title: "Research support", text: "Technical guidance, measurement, testing, and iterative development for research teams." },
+];
 
 export default function Home() {
   return (
-    <div className="flex flex-col w-full">
-      {/* 8.3 Hero Section */}
-      <section className="relative bg-neutral-50 overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://picsum.photos/seed/buetlab/1920/1080')] bg-cover bg-center opacity-10 mix-blend-multiply" />
-        <div className="absolute inset-0 bg-gradient-to-r from-neutral-50 via-neutral-50/90 to-transparent" />
-        
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 md:py-20 relative z-10">
-          <div className="max-w-3xl space-y-6">
-            <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-buet-red-dark leading-[1.1]">
-              Design, fabricate, and test the <span className="text-buet-red">future.</span>
-            </h1>
-            <p className="text-xl text-buet-red/80 leading-relaxed max-w-2xl">
-              BUET FabLab is the premier national centre for digital fabrication, advanced manufacturing, and engineering innovation. We provide the tools, expertise, and community to turn complex ideas into tangible realities.
-            </p>
-            <div className="flex flex-wrap gap-4 pt-4">
-              <Button size="lg" className="text-base font-semibold" asChild>
-                <Link href="/equipment">Book Equipment</Link>
-              </Button>
-              <Button size="lg" variant="outline" className="text-base font-semibold" asChild>
-                <Link href="/projects/start">Start a Research Project</Link>
-              </Button>
+    <div className="w-full overflow-hidden">
+      <section className="relative min-h-[570px] bg-[#26050b] text-white lg:min-h-[610px]">
+        <Image src="/images/home-bg.webp" alt="Industrial robotic arm in an advanced manufacturing laboratory" fill priority sizes="100vw" className="object-cover object-center opacity-65" />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,#26050b_0%,rgba(38,5,11,.92)_42%,rgba(38,5,11,.32)_76%,rgba(38,5,11,.5)_100%)]" />
+        <div className="absolute inset-y-0 right-[9%] hidden w-px bg-white/25 lg:block" />
+        <div className="absolute bottom-0 right-0 h-32 w-[42%] bg-buet-red/90 [clip-path:polygon(18%_0,100%_0,100%_100%,0_100%)]" />
+        <div className="section-shell relative flex min-h-[570px] items-start pb-24 pt-16 sm:pt-20 lg:min-h-[610px] lg:pt-20">
+          <div className="max-w-4xl">
+            <p className="mb-6 flex items-center gap-3 text-xs font-bold uppercase tracking-[.22em] text-white/75"><span className="h-px w-10 bg-[#d9b36c]" /> Bangladesh University of Engineering and Technology</p>
+            <h1 className="max-w-[850px] text-5xl font-bold leading-[.98] tracking-[-.04em] sm:text-6xl lg:text-[88px]">Where engineering<br /><span className="text-[#f1c77a]">takes shape.</span></h1>
+            <p className="mt-6 max-w-2xl text-lg leading-8 text-white/80 sm:text-xl">A shared laboratory for students, researchers, and industry teams to design, fabricate, test, and improve physical ideas.</p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Button size="lg" className="bg-white text-buet-red shadow-none hover:bg-[#f5e9d5]" asChild><Link href="/equipment">Explore the lab <ArrowRight /></Link></Button>
+              <Button size="lg" variant="outline" className="border-white/50 bg-white/5 text-white backdrop-blur hover:border-white hover:bg-white/10 hover:text-white" asChild><Link href="/projects/start">Start a project</Link></Button>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 8.4 Quick Task Panel */}
-      <section className="bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-16 relative z-20">
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 bg-white border border-neutral-300 border-t-4 border-t-buet-red overflow-hidden divide-x divide-y md:divide-y-0 divide-neutral-200">
-            <Link href="/equipment" className="flex flex-col items-center justify-center p-6 text-center hover:bg-neutral-50 transition-colors group">
-              <Settings className="w-6 h-6 text-buet-red mb-3 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
-              <span className="text-sm font-semibold text-neutral-900">Book Equipment</span>
-            </Link>
-            <Link href="/training/register" className="flex flex-col items-center justify-center p-6 text-center hover:bg-neutral-50 transition-colors group">
-              <BookOpen className="w-6 h-6 text-buet-red mb-3 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
-              <span className="text-sm font-semibold text-neutral-900">Register Training</span>
-            </Link>
-            <Link href="/services/fabrication" className="flex flex-col items-center justify-center p-6 text-center hover:bg-neutral-50 transition-colors group">
-              <Wrench className="w-6 h-6 text-buet-red mb-3 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
-              <span className="text-sm font-semibold text-neutral-900">Fabrication Request</span>
-            </Link>
-            <Link href="/facilities" className="flex flex-col items-center justify-center p-6 text-center hover:bg-neutral-50 transition-colors group">
-              <Layers className="w-6 h-6 text-buet-red mb-3 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
-              <span className="text-sm font-semibold text-neutral-900">Explore Facilities</span>
-            </Link>
-            <Link href="/research/collaborate" className="flex flex-col items-center justify-center p-6 text-center hover:bg-neutral-50 transition-colors group">
-              <Microscope className="w-6 h-6 text-buet-red mb-3 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
-              <span className="text-sm font-semibold text-neutral-900">Research Collab</span>
-            </Link>
-            <Link href="/visit" className="flex flex-col items-center justify-center p-6 text-center hover:bg-neutral-50 transition-colors group">
-              <CalendarDays className="w-6 h-6 text-buet-red mb-3 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
-              <span className="text-sm font-semibold text-neutral-900">Visit the Lab</span>
-            </Link>
-          </div>
-        </div>
-      </section>
+      <section className="relative z-10 -mt-12 pb-6"><div className="section-shell"><div className="grid overflow-hidden rounded-2xl bg-white shadow-[0_24px_70px_rgba(54,21,16,.18)] sm:grid-cols-2 lg:grid-cols-4">
+        {quickLinks.map((item) => <Link key={item.href} href={item.href} className="group flex items-center gap-4 border-b border-neutral-200 p-5 transition hover:bg-[#fff9f0] sm:p-6 lg:border-b-0 lg:border-r last:border-0"><span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-red-50 text-buet-red transition group-hover:bg-buet-red group-hover:text-white"><item.icon className="h-5 w-5" /></span><span className="min-w-0 flex-1 text-sm font-bold text-buet-red-dark">{item.label}</span><ArrowRight className="h-4 w-4 shrink-0 text-neutral-400 transition group-hover:translate-x-1 group-hover:text-buet-red" /></Link>)}
+      </div></div></section>
 
-      {/* 8.5 Capability Overview */}
-      <section className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-16 max-w-3xl">
-            <h2 className="text-3xl font-bold text-buet-red-dark mb-4">Core Capabilities</h2>
-            <p className="text-buet-red/80 text-lg">
-              Our laboratory houses industrial-grade equipment across multiple domains, supporting everything from rapid prototyping to advanced material research.
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              { icon: Layers, title: "Additive Manufacturing", desc: "FDM, SLA, and SLS systems for high-resolution 3D printing in diverse materials." },
-              { icon: PenTool, title: "CNC Machining", desc: "Precision subtractive manufacturing including milling, turning, and routing." },
-              { icon: Cpu, title: "Electronics & PCB", desc: "In-house circuit board fabrication, surface mount assembly, and testing." },
-              { icon: Ruler, title: "Metrology & Testing", desc: "3D scanning, material testing, and dimensional inspection capabilities." }
-            ].map((cap, i) => (
-              <div key={i} className="group border border-neutral-300 border-t-4 border-t-buet-red p-6 hover:bg-[#faf8f4] transition-colors bg-white">
-                <cap.icon className="w-10 h-10 text-buet-red mb-6" />
-                <h3 className="text-lg font-bold text-buet-red mb-3">{cap.title}</h3>
-                <p className="text-buet-red/80 text-sm leading-relaxed">{cap.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <section className="py-24 lg:py-32"><div className="section-shell grid gap-14 lg:grid-cols-[.75fr_1.25fr] lg:gap-20">
+        <div className="lg:sticky lg:top-32 lg:self-start"><p className="eyebrow">Capabilities</p><h2 className="mt-5 text-4xl font-bold leading-tight tracking-tight text-buet-red-dark sm:text-5xl">One lab. Many ways to make.</h2><p className="mt-6 max-w-md text-lg leading-8 text-neutral-600">Move from CAD to a tested part with equipment, training, and practical support in one place.</p><Button variant="link" className="mt-5 h-auto p-0" asChild><Link href="/facilities">See all facilities <ArrowRight /></Link></Button></div>
+        <div className="divide-y divide-neutral-300 border-y border-neutral-300">{capabilities.map((item, index) => <article key={item.title} className="group grid gap-5 py-8 sm:grid-cols-[72px_1fr_auto] sm:items-start sm:py-10"><span className="font-serif text-3xl text-buet-red/35">0{index + 1}</span><div><h3 className="text-2xl font-bold text-buet-red-dark">{item.title}</h3><p className="mt-3 max-w-xl leading-7 text-neutral-600">{item.text}</p></div><span className="hidden h-12 w-12 items-center justify-center rounded-full border border-neutral-300 text-buet-red transition group-hover:border-buet-red group-hover:bg-buet-red group-hover:text-white sm:flex"><item.icon className="h-5 w-5" /></span></article>)}</div>
+      </div></section>
 
-      {/* 8.6 Equipment Availability Preview */}
-      <section className="py-24 bg-neutral-100 border-y">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
-            <div className="max-w-2xl">
-              <Badge variant="outline" className="mb-4 bg-white">Live Status (Simulated)</Badge>
-              <h2 className="text-3xl font-bold text-buet-red-dark mb-4">Equipment Availability</h2>
-              <p className="text-buet-red/80">Check the real-time status of our most heavily utilized machines.</p>
-            </div>
-            <Button variant="outline" asChild>
-              <Link href="/equipment">
-                View Full Catalogue <ArrowRight className="w-4 h-4 ml-2" />
-              </Link>
-            </Button>
-          </div>
+      <section className="bg-[#2b060d] py-24 text-white lg:py-28"><div className="section-shell">
+        <div className="flex flex-col justify-between gap-7 border-b border-white/20 pb-9 md:flex-row md:items-end"><div><p className="text-xs font-bold uppercase tracking-[.2em] text-[#f1c77a]">Equipment</p><h2 className="mt-4 text-4xl font-bold tracking-tight sm:text-5xl">Tools ready for serious work.</h2></div><Button variant="outline" className="w-fit border-white/35 bg-transparent text-white hover:border-white hover:bg-white hover:text-buet-red" asChild><Link href="/equipment">View catalogue <ArrowRight /></Link></Button></div>
+        <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-4">{equipmentPreview.map((equipment) => <Link href={`/equipment/${equipment.id}`} key={equipment.id} className="group relative min-h-[400px] overflow-hidden rounded-2xl"><Image src={equipment.image} alt={equipment.name} fill sizes="(max-width: 768px) 100vw, 25vw" className="object-cover transition duration-700 group-hover:scale-105" /><div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" /><div className="absolute left-5 top-5"><Badge variant={equipment.status === "available" ? "success" : equipment.status === "in-use" ? "info" : equipment.status === "maintenance" ? "destructive" : "warning"}>{equipment.status.replace("-", " ")}</Badge></div><div className="absolute inset-x-0 bottom-0 p-6"><p className="text-xs font-bold uppercase tracking-[.15em] text-white/65">{equipment.category}</p><h3 className="mt-2 text-2xl font-bold text-white">{equipment.name}</h3><p className="mt-3 flex items-center gap-2 text-sm font-semibold text-[#f1c77a]">View machine <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" /></p></div></Link>)}</div>
+      </div></section>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {equipmentPreview.map((eq) => (
-              <Card key={eq.id} className="overflow-hidden flex flex-col hover:shadow-md transition-shadow">
-                <div className="relative h-48 bg-neutral-200">
-                  <Image src={eq.image} alt={eq.name} fill className="object-cover" referrerPolicy="no-referrer" />
-                  <div className="absolute top-3 right-3">
-                    <Badge variant={
-                      eq.status === 'available' ? 'success' : 
-                      eq.status === 'in-use' ? 'info' : 
-                      eq.status === 'maintenance' ? 'destructive' : 'warning'
-                    } className="capitalize">
-                      {eq.status.replace('-', ' ')}
-                    </Badge>
-                  </div>
-                </div>
-                <CardContent className="p-5 flex-grow flex flex-col">
-                  <span className="text-xs font-semibold text-neutral-500 uppercase tracking-wider mb-1">{eq.category}</span>
-                  <h3 className="text-lg font-bold text-buet-red-dark mb-4">{eq.name}</h3>
-                  
-                  <div className="mt-auto space-y-3 text-sm">
-                    <div className="flex justify-between pb-2 border-b">
-                      <span className="text-neutral-500">Available:</span>
-                      <span className="font-medium text-buet-red">{eq.nextAvailable}</span>
-                    </div>
-                    <div className="flex justify-between pb-4">
-                      <span className="text-neutral-500">Training:</span>
-                      <span className="font-medium text-buet-red text-right">{eq.trainingRequired}</span>
-                    </div>
-                    <Button className="w-full" variant={eq.status === 'available' ? 'default' : 'secondary'} asChild>
-                      <Link href={`/equipment/${eq.id}/book`}>
-                        {eq.status === 'available' ? 'Book Now' : 'Check Schedule'}
-                      </Link>
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
+      <section className="bg-white py-24 lg:py-32"><div className="section-shell">
+        <div className="mb-12 grid gap-6 md:grid-cols-[1fr_auto] md:items-end"><div><p className="eyebrow">Built at BUET</p><h2 className="mt-4 text-4xl font-bold tracking-tight text-buet-red-dark sm:text-5xl">Ideas made tangible.</h2><p className="mt-4 max-w-2xl text-lg text-neutral-600">Selected work from student, research, and startup teams across the university.</p></div><Button variant="outline" asChild><Link href="/projects">Browse all projects <ArrowRight /></Link></Button></div>
+        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-5 lg:grid-rows-2">{featuredProjects.map((project, index) => <Link href={`/projects/${project.id}`} key={project.id} className={`group relative min-h-[320px] overflow-hidden rounded-2xl ${index === 0 ? "lg:col-span-3 lg:row-span-2 lg:min-h-[665px]" : "lg:col-span-2"}`}><Image src={project.image} alt={project.title} fill sizes={index === 0 ? "(max-width: 1024px) 100vw, 60vw" : "(max-width: 1024px) 100vw, 40vw"} className="object-cover transition duration-700 group-hover:scale-105" /><div className="absolute inset-0 bg-gradient-to-t from-[#26050b]/95 via-transparent to-transparent" /><div className="absolute inset-x-0 bottom-0 p-6 sm:p-8"><p className="text-xs font-bold uppercase tracking-[.16em] text-[#f1c77a]">{project.type} · {project.year}</p><h3 className={`${index === 0 ? "text-3xl sm:text-4xl" : "text-2xl"} mt-3 font-bold text-white`}>{project.title}</h3><p className="mt-3 text-sm text-white/70">{project.team}</p></div></Link>)}</div>
+      </div></section>
 
-      {/* 8.11 Impact Metrics */}
-      <section className="py-20 bg-buet-red-dark text-white border-y-4 border-buet-red">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 divide-x divide-neutral-700">
-            {impactMetrics.map((metric, i) => (
-              <div key={i} className="text-center px-4">
-                <div className="text-4xl md:text-5xl font-bold text-white mb-2">{metric.value}</div>
-                <div className="text-sm font-medium text-neutral-300 uppercase tracking-wider">{metric.label}</div>
-              </div>
-            ))}
-          </div>
-          <div className="text-center mt-12 text-xs text-neutral-500 uppercase tracking-widest">
-            * Demonstration Data for Prototype
-          </div>
-        </div>
-      </section>
-
-      {/* 8.8 Featured Projects */}
-      <section className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-end mb-12">
-            <div>
-              <h2 className="text-3xl font-bold text-buet-red-dark mb-4">Innovation in Action</h2>
-              <p className="text-buet-red/80 max-w-2xl">Discover how researchers, students, and startups are using BUET FabLab to develop breakthrough hardware solutions.</p>
-            </div>
-            <Button variant="link" className="hidden md:flex" asChild>
-              <Link href="/projects">View Project Gallery <ArrowRight className="w-4 h-4 ml-2" /></Link>
-            </Button>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {featuredProjects.map((project) => (
-              <Link href={`/projects/${project.id}`} key={project.id} className="group flex flex-col rounded-xl overflow-hidden border bg-card hover:border-buet-red transition-colors shadow-sm">
-                <div className="relative h-64 overflow-hidden">
-                  <Image src={project.image} alt={project.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" referrerPolicy="no-referrer" />
-                  <div className="absolute top-4 left-4">
-                    <Badge className="bg-white/90 text-buet-red hover:bg-white backdrop-blur-sm shadow-sm">{project.type}</Badge>
-                  </div>
-                </div>
-                <div className="p-6 flex flex-col flex-grow">
-                  <h3 className="text-xl font-bold text-buet-red-dark mb-2 group-hover:text-buet-red transition-colors">{project.title}</h3>
-                  <p className="text-sm text-neutral-500 mb-4">{project.team} • {project.year}</p>
-                  
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {project.technologies.map(tech => (
-                      <Badge key={tech} variant="secondary" className="bg-neutral-100 text-neutral-600 font-medium">
-                        {tech}
-                      </Badge>
-                    ))}
-                  </div>
-                  
-                  <div className="mt-auto pt-4 border-t">
-                    <p className="text-sm font-medium text-buet-red">
-                      <span className="text-neutral-500 mr-2">Outcome:</span>
-                      {project.outcome}
-                    </p>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 8.10 Industry and Partnership */}
-      <section className="py-24 bg-neutral-100 border-t">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-16 items-center">
-            <div className="space-y-6">
-              <Badge variant="outline" className="bg-white border-buet-red text-buet-red">Industry Collaboration</Badge>
-              <h2 className="text-3xl md:text-4xl font-bold text-buet-red-dark">Accelerate Your Hardware Development</h2>
-              <p className="text-lg text-buet-red/80 leading-relaxed">
-                BUET FabLab partners with startups, established industries, and research institutes to provide access to advanced manufacturing capabilities, expert design consultation, and rapid prototyping services.
-              </p>
-              <ul className="space-y-3 pt-4">
-                {['Prototype development and testing', 'Design-for-manufacturing review', 'Sponsored research opportunities', 'Workforce training programs'].map((item, i) => (
-                  <li key={i} className="flex items-start gap-3">
-                    <div className="mt-1 w-5 h-5 rounded-full bg-buet-red/10 flex items-center justify-center shrink-0">
-                      <div className="w-2 h-2 rounded-full bg-buet-red" />
-                    </div>
-                    <span className="text-buet-red font-medium">{item}</span>
-                  </li>
-                ))}
-              </ul>
-              <div className="pt-6">
-                <Button size="lg" asChild>
-                  <Link href="/collaborate/industry">Discuss an Industry Project</Link>
-                </Button>
-              </div>
-            </div>
-            <div className="relative h-[500px] overflow-hidden border-4 border-white outline outline-1 outline-neutral-300">
-              <Image src="https://picsum.photos/seed/industry/800/1000" alt="Industry Collaboration" fill className="object-cover" referrerPolicy="no-referrer" />
-              <div className="absolute inset-0 bg-gradient-to-t from-charcoal-dark/80 to-transparent" />
-              <div className="absolute bottom-8 left-8 right-8">
-                <p className="text-white text-lg font-medium">&ldquo;The facilities at BUET FabLab allowed us to iterate our prototype 3x faster than traditional outsourcing.&rdquo;</p>
-                <p className="text-neutral-300 mt-2 text-sm">— Demonstration Startup Founder</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
+      <section className="bg-[#eee8df] py-20 lg:py-28"><div className="section-shell"><div className="grid overflow-hidden rounded-[28px] bg-buet-red shadow-[0_30px_80px_rgba(80,12,24,.2)] lg:grid-cols-[1.05fr_.95fr]">
+        <div className="order-2 p-8 text-white sm:p-12 lg:order-1 lg:p-16"><p className="text-xs font-bold uppercase tracking-[.2em] text-white/70">Industry collaboration</p><h2 className="mt-5 text-4xl font-bold leading-tight tracking-tight sm:text-5xl">Bring a difficult hardware problem.</h2><p className="mt-6 max-w-xl text-lg leading-8 text-white/80">Work with BUET researchers and fabrication specialists on design review, prototyping, testing, and applied technical training.</p><div className="mt-9 flex flex-wrap gap-3"><Button size="lg" className="bg-white text-buet-red shadow-none hover:bg-[#f5e9d5]" asChild><Link href="/collaborate/industry">Work with us <ArrowRight /></Link></Button><Button size="lg" variant="outline" className="border-white/40 bg-transparent text-white hover:bg-white/10 hover:text-white" asChild><Link href="/research">Explore research</Link></Button></div></div>
+        <div className="relative order-1 min-h-[380px] lg:order-2 lg:min-h-full"><Image src="/images/industry.webp" alt="Industry partners working with a fabrication team" fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" /></div>
+      </div></div></section>
     </div>
   );
 }

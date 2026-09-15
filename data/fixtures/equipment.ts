@@ -39,8 +39,8 @@ export const mockEquipment: Equipment[] = [
     trainingRequired: "Basic Safety & FDM Operation",
     internalRate: 150,
     externalRate: 500,
-    image: "https://picsum.photos/seed/fdm3/800/600",
-    nextAvailable: "Now"
+    image: "/images/fdm3.webp",
+    nextAvailable: "Check calendar"
   },
   {
     id: "eq-laser-1",
@@ -59,8 +59,8 @@ export const mockEquipment: Equipment[] = [
     trainingRequired: "Laser Safety Level 1",
     internalRate: 200,
     externalRate: 800,
-    image: "https://picsum.photos/seed/laser1/800/600",
-    nextAvailable: "Today, 14:00"
+    image: "/images/laser1.webp",
+    nextAvailable: "Check calendar"
   },
   {
     id: "eq-cnc-1",
@@ -79,8 +79,8 @@ export const mockEquipment: Equipment[] = [
     trainingRequired: "CNC Machining Level 2 Certification",
     internalRate: 500,
     externalRate: 2000,
-    image: "https://picsum.photos/seed/cnc2/800/600",
-    nextAvailable: "Requires Certification"
+    image: "/images/cnc2.webp",
+    nextAvailable: "Training required"
   },
   {
     id: "eq-sla-1",
@@ -99,8 +99,8 @@ export const mockEquipment: Equipment[] = [
     trainingRequired: "Resin Handling & Post-Processing",
     internalRate: 100,
     externalRate: 350,
-    image: "https://picsum.photos/seed/sla1/800/600",
-    nextAvailable: "Est. 24 Oct"
+    image: "/images/sla1.webp",
+    nextAvailable: "Unavailable"
   },
   {
     id: "eq-robot-1",
@@ -119,8 +119,8 @@ export const mockEquipment: Equipment[] = [
     trainingRequired: "Cobot Safety & Programming",
     internalRate: 250,
     externalRate: 1000,
-    image: "https://picsum.photos/seed/robot1/800/600",
-    nextAvailable: "Tomorrow, 09:00"
+    image: "/images/robot1.webp",
+    nextAvailable: "Check calendar"
   },
   {
     id: "eq-pcb-1",
@@ -139,8 +139,8 @@ export const mockEquipment: Equipment[] = [
     trainingRequired: "Basic Electronics Safety",
     internalRate: 50,
     externalRate: 200,
-    image: "https://picsum.photos/seed/pcb1/800/600",
-    nextAvailable: "Now"
+    image: "/images/pcb1.webp",
+    nextAvailable: "Check calendar"
   }
 ];
 

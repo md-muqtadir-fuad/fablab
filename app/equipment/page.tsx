@@ -5,22 +5,23 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { mockEquipment, equipmentCategories, facilities } from "@/data/fixtures/equipment";
-import { Search, Filter, SlidersHorizontal, MapPin, AlertCircle, Calendar } from "lucide-react";
+import { Search, Filter, MapPin, AlertCircle, Calendar } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function EquipmentCatalogue() {
+  const [sort, setSort] = useState("name-asc");
   const [query, setQuery] = useState("");
   const [categories, setCategories] = useState<string[]>([]);
   const [selectedFacilities, setSelectedFacilities] = useState<string[]>([]);
   const [statuses, setStatuses] = useState<string[]>([]);
   const filteredEquipment = useMemo(() => mockEquipment.filter((equipment) => {
     const searchText = `${equipment.name} ${equipment.category} ${equipment.manufacturer}`.toLowerCase();
-    return searchText.includes(query.toLowerCase())
+    return searchText.includes(query.trim().toLowerCase())
       && (!categories.length || categories.includes(equipment.category))
       && (!selectedFacilities.length || selectedFacilities.includes(equipment.facility))
       && (!statuses.length || statuses.includes(equipment.status));
-  }), [query, categories, selectedFacilities, statuses]);
+  }).sort((a,b) => sort === "name-desc" ? b.name.localeCompare(a.name) : sort === "rate" ? a.externalRate - b.externalRate : a.name.localeCompare(b.name)), [query, categories, selectedFacilities, statuses, sort]);
 
   const toggle = (value: string, values: string[], setValues: (values: string[]) => void) =>
     setValues(values.includes(value) ? values.filter((item) => item !== value) : [...values, value]);
@@ -32,13 +33,14 @@ export default function EquipmentCatalogue() {
   };
 
   return (
-    <div className="bg-[#faf8f4] min-h-screen pb-24">
-      {/* Header */}
-      <div className="bg-buet-red-dark text-white pt-12 pb-24 px-4 sm:px-6 lg:px-8 border-b-4 border-[#a98b59]">
-        <div className="max-w-7xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Equipment Catalogue</h1>
-          <p className="text-white/75 text-lg max-w-2xl">
-            Browse and book the advanced fabrication machinery available at BUET FabLab. Ensure you have the required safety certifications before reserving restricted equipment.
+    <div className="min-h-screen bg-[#f7f4ef] pb-24">
+      <div className="relative overflow-hidden bg-[#2b060d] px-4 pb-28 pt-16 text-white sm:px-6 lg:px-8">
+        <div className="absolute -right-24 -top-56 h-[560px] w-[560px] rounded-full border-[110px] border-white/[.04]" />
+        <div className="relative mx-auto max-w-7xl">
+          <p className="mb-5 text-xs font-bold uppercase tracking-[.2em] text-[#f1c77a]">Machine access</p>
+          <h1 className="mb-5 text-5xl font-bold tracking-tight md:text-7xl">Equipment catalogue</h1>
+          <p className="max-w-2xl text-lg leading-8 text-white/70">
+            Compare machines, check training requirements, and request a fabrication session.
           </p>
         </div>
       </div>
@@ -48,8 +50,8 @@ export default function EquipmentCatalogue() {
           
           {/* Filters Sidebar */}
           <aside className="w-full lg:w-72 shrink-0">
-            <Card className="sticky top-24">
-              <div className="p-4 border-b bg-neutral-50/50 flex justify-between items-center">
+            <Card className="sticky top-28 overflow-hidden shadow-[0_18px_50px_rgba(60,34,25,.10)]">
+              <div className="flex items-center justify-between border-b bg-[#f4efe7] p-5">
                 <h2 className="font-semibold flex items-center gap-2">
                   <Filter className="w-4 h-4" /> Filters
                 </h2>
@@ -58,15 +60,15 @@ export default function EquipmentCatalogue() {
               <CardContent className="p-5 space-y-6">
                 {/* Search */}
                 <div className="space-y-3">
-                  <label className="text-sm font-medium text-buet-red-dark">Search Equipment</label>
+                  <label htmlFor="equipment-search" className="text-sm font-medium text-buet-red-dark">Search Equipment</label>
                   <div className="relative">
                     <Search className="absolute left-3 top-2.5 h-4 w-4 text-neutral-400" />
                     <input 
-                      type="text" 
+                      id="equipment-search" type="search"
                       placeholder="e.g. 3D Printer..." 
                       value={query}
                       onChange={(event) => setQuery(event.target.value)}
-                      className="w-full pl-9 pr-4 py-2 text-sm border rounded-md focus:outline-none focus:ring-2 focus:ring-buet-red/50"
+                    className="w-full rounded-xl border border-neutral-300 py-2.5 pl-9 pr-4 text-sm focus:border-buet-red focus:outline-none focus:ring-4 focus:ring-red-100"
                     />
                   </div>
                 </div>
@@ -101,7 +103,7 @@ export default function EquipmentCatalogue() {
                 <div className="space-y-3">
                   <label className="text-sm font-medium text-buet-red-dark">Availability</label>
                   <div className="space-y-2">
-                    {[['Available', 'available'], ['In Use', 'in-use'], ['Maintenance', 'maintenance']].map(([label, status]) => (
+                    {[['Available', 'available'], ['In Use', 'in-use'], ['Maintenance', 'maintenance'], ['Training', 'training']].map(([label, status]) => (
                       <label key={status} className="flex items-center gap-2 text-sm text-neutral-600 hover:text-buet-red cursor-pointer">
                         <input type="checkbox" checked={statuses.includes(status)} onChange={() => toggle(status, statuses, setStatuses)} className="rounded border-neutral-300 text-buet-red focus:ring-buet-red" />
                         {label}
@@ -114,21 +116,19 @@ export default function EquipmentCatalogue() {
           </aside>
 
           {/* Results Area */}
-          <div className="flex-grow space-y-6">
-            <div className="flex justify-between items-center">
-              <p className="text-sm text-neutral-500 font-medium">Showing <span className="text-buet-red font-bold">{filteredEquipment.length}</span> machines</p>
+          <div className="min-w-0 flex-grow space-y-6">
+            <div className="flex flex-wrap justify-between items-center gap-3">
+              <p className="text-sm font-medium text-neutral-500">Showing <span className="font-bold text-buet-red">{filteredEquipment.length}</span> machines</p>
               <div className="flex items-center gap-2">
-                <Button variant="outline" size="sm" className="hidden sm:flex">
-                  <SlidersHorizontal className="w-4 h-4 mr-2" /> Sort: Name A-Z
-                </Button>
+                <label className="text-sm"><span className="sr-only">Sort equipment</span><select aria-label="Sort equipment" value={sort} onChange={e => setSort(e.target.value)} className="rounded-full border bg-white px-4 py-2.5"><option value="name-asc">Name A–Z</option><option value="name-desc">Name Z–A</option><option value="rate">Hourly rate: low to high</option></select></label>
               </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {filteredEquipment.map((eq) => (
-                <Card key={eq.id} className="overflow-hidden flex flex-col group hover:border-buet-red/30 transition-colors">
-                  <div className="relative h-48 bg-neutral-200">
-                    <Image src={eq.image} alt={eq.name} fill className="object-cover group-hover:scale-105 transition-transform duration-500" referrerPolicy="no-referrer" />
+                <Card key={eq.id} className="group flex flex-col overflow-hidden transition duration-300 hover:-translate-y-1 hover:border-buet-red/30 hover:shadow-[0_20px_55px_rgba(66,39,28,.12)]">
+                  <div className="relative h-56 overflow-hidden bg-neutral-200">
+                    <Image src={eq.image} alt={eq.name} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover group-hover:scale-105 transition-transform duration-500" />
                     <div className="absolute top-3 right-3">
                       <Badge variant={
                         eq.status === 'available' ? 'success' : 
@@ -145,7 +145,7 @@ export default function EquipmentCatalogue() {
                     <div className="mb-4">
                       <span className="text-xs font-semibold text-neutral-500 uppercase tracking-wider block mb-1">{eq.category}</span>
                       <h3 className="text-lg font-bold text-buet-red-dark leading-tight mb-2">
-                        <Link href={`/equipment/${eq.id}`} className="hover:text-buet-red before:absolute before:inset-0">
+                        <Link href={`/equipment/${eq.id}`} className="hover:text-buet-red ">
                           {eq.name}
                         </Link>
                       </h3>
@@ -172,7 +172,7 @@ export default function EquipmentCatalogue() {
                         </div>
                       </div>
                       
-                      <div className="bg-neutral-50 rounded p-2.5 text-xs flex items-start gap-2 border border-neutral-100">
+                      <div className="flex items-start gap-2 rounded-xl border border-neutral-100 bg-[#f7f4ef] p-3 text-xs">
                         <AlertCircle className="w-4 h-4 text-neutral-400 shrink-0" />
                         <div>
                           <span className="text-neutral-500 block">Requirement</span>
@@ -199,9 +199,6 @@ export default function EquipmentCatalogue() {
               </div>
             )}
             
-            <div className="text-center pt-8">
-              <p className="text-xs text-neutral-400 uppercase tracking-widest">* Simulated Prototype Data</p>
-            </div>
           </div>
         </div>
       </div>

@@ -1,2 +1,3 @@
-import { ContentPage } from "@/components/content/ContentPage";
-export default function Page() { return <ContentPage page="projects" />; }
+import { ProjectGallery } from "@/components/content/ProjectGallery";
+export const metadata={title:"Project gallery"};
+export default function Page() { return <ProjectGallery />; }

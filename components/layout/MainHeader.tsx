@@ -1,112 +1,45 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { Search, Menu, X } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { useState } from 'react';
+import Image from "next/image";
+import Link from "next/link";
+import { ArrowUpRight, Menu, Search, X } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { useState } from "react";
 
-const mainNavigation = [
-  { name: 'Explore', href: '/explore' },
-  { name: 'Make', href: '/make' },
-  { name: 'Learn', href: '/learn' },
-  { name: 'Research', href: '/research' },
-  { name: 'Collaborate', href: '/collaborate' },
-  { name: 'Community', href: '/community' },
-  { name: 'About', href: '/about' },
+const navigation = [
+  ["Explore", "/explore"], ["Make", "/make"], ["Learn", "/learn"], ["Research", "/research"],
+  ["Collaborate", "/collaborate"], ["Community", "/community"], ["About", "/about"],
 ];
 
 export default function MainHeader() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
+  const pathname = usePathname();
+  const [open, setOpen] = useState(false);
   return (
-    <header className="bg-[#68101f] border-b border-buet-red-dark sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20">
-          {/* Logo Area */}
-          <div className="flex items-center gap-4">
-            <Link href="/" className="flex items-center gap-3 group">
-              <div className="w-10 h-10 border border-white/50 bg-white flex items-center justify-center text-buet-red-dark font-serif font-bold text-xl group-hover:bg-neutral-100 transition-colors">
-                F
-              </div>
-              <div className="flex flex-col">
-                <span className="font-bold text-xl leading-tight text-white">BUET FabLab</span>
-                <span className="text-xs text-white/80 font-medium">Fabrication Laboratory</span>
-              </div>
-            </Link>
-          </div>
+    <header className="sticky top-0 z-50 border-b border-neutral-200 bg-white/95 shadow-[0_4px_24px_rgba(56,28,24,.06)] backdrop-blur-xl" onKeyDown={(event) => { if (event.key === "Escape") { setOpen(false); document.getElementById("menu-toggle")?.focus(); } }}>
+      <div className="mx-auto flex h-[74px] max-w-[1440px] items-center justify-between gap-8 px-4 sm:px-6 lg:px-8">
+        <Link href="/" className="flex shrink-0 items-center gap-3" aria-label="Advanced Fabrication Lab home">
+          <Image src="/logos/advanced-fabrication-lab.png" alt="" width={48} height={58} priority className="h-[54px] w-11 object-contain" />
+          <span className="border-l border-neutral-200 pl-3">
+            <span className="block font-serif text-xl font-bold leading-none tracking-tight text-buet-red-dark">Advanced Fabrication Lab</span>
+            <span className="mt-1.5 block text-[10px] font-bold uppercase tracking-[.18em] text-neutral-500">BUET · Dhaka</span>
+          </span>
+        </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex space-x-8">
-            {mainNavigation.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className="text-sm font-medium text-white/90 hover:text-white transition-colors py-2 flex items-center gap-1"
-              >
-                {item.name}
-              </Link>
-            ))}
-          </nav>
+        <nav aria-label="Main navigation" className="hidden items-center gap-1 xl:flex">
+          {navigation.map(([label, href]) => {
+            const active = pathname === href || (href !== "/" && pathname.startsWith(`${href}/`));
+            return <Link key={href} href={href} aria-current={active ? "page" : undefined} className={`rounded-full px-3.5 py-2 text-sm font-semibold transition-colors ${active ? "bg-red-50 text-buet-red" : "text-neutral-700 hover:bg-neutral-100 hover:text-buet-red"}`}>{label}</Link>;
+          })}
+        </nav>
 
-          {/* Actions */}
-          <div className="hidden lg:flex items-center gap-4">
-            <Link href="/equipment" className="text-white/90 hover:text-white transition-colors" aria-label="Search equipment">
-              <Search className="w-5 h-5" />
-            </Link>
-            <Button variant="outline" className="bg-transparent text-white border-white hover:bg-white/10 hover:text-white" asChild>
-              <Link href="/projects/start">Start a Project</Link>
-            </Button>
-            <Button className="bg-white text-buet-red hover:bg-neutral-100" asChild>
-              <Link href="/equipment">Book a Machine</Link>
-            </Button>
-          </div>
-
-          {/* Mobile menu button */}
-          <div className="lg:hidden flex items-center gap-4">
-            <Link href="/equipment" className="text-white/90 hover:text-white transition-colors" aria-label="Search equipment">
-              <Search className="w-5 h-5" />
-            </Link>
-            <button
-              type="button"
-              className="text-white/90 hover:text-white p-2"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            >
-              <span className="sr-only">Open main menu</span>
-              {mobileMenuOpen ? (
-                <X className="h-6 w-6" aria-hidden="true" />
-              ) : (
-                <Menu className="h-6 w-6" aria-hidden="true" />
-              )}
-            </button>
-          </div>
+        <div className="hidden shrink-0 items-center gap-2 xl:flex">
+          <Link href="/equipment" aria-label="Browse equipment catalogue" className="rounded-full p-2.5 text-neutral-600 hover:bg-neutral-100 hover:text-buet-red"><Search className="h-5 w-5" /></Link>
+          <Link href="/projects/start" className="inline-flex h-11 items-center gap-2 rounded-full bg-buet-red px-5 text-sm font-bold text-white shadow-[0_8px_20px_rgba(181,18,42,.22)] transition hover:-translate-y-0.5 hover:bg-buet-red-dark">Start a project <ArrowUpRight className="h-4 w-4" /></Link>
         </div>
+
+        <button id="menu-toggle" type="button" aria-expanded={open} aria-controls="mobile-navigation" onClick={() => setOpen(!open)} className="rounded-full border border-neutral-200 p-2.5 text-buet-red-dark xl:hidden"><span className="sr-only">{open ? "Close main menu" : "Open main menu"}</span>{open ? <X /> : <Menu />}</button>
       </div>
-
-      {/* Mobile Menu */}
-      {mobileMenuOpen && (
-        <div className="lg:hidden border-t border-white/15 bg-[#68101f]">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            {mainNavigation.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-buet-red-dark"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                {item.name}
-              </Link>
-            ))}
-            <div className="mt-4 pt-4 border-t border-buet-red-dark flex flex-col gap-2 px-3">
-              <Button variant="outline" className="w-full justify-center bg-transparent text-white border-white hover:bg-white/10 hover:text-white" asChild>
-                <Link href="/projects/start" onClick={() => setMobileMenuOpen(false)}>Start a Project</Link>
-              </Button>
-              <Button className="w-full justify-center bg-white text-buet-red hover:bg-neutral-100" asChild>
-                <Link href="/equipment" onClick={() => setMobileMenuOpen(false)}>Book a Machine</Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      )}
+      {open && <nav id="mobile-navigation" aria-label="Mobile navigation" className="max-h-[calc(100dvh-74px)] overflow-auto border-t border-neutral-200 bg-white px-4 py-5 xl:hidden"><div className="mx-auto grid max-w-2xl gap-1">{navigation.map(([label, href]) => <Link key={href} href={href} onClick={() => setOpen(false)} className="rounded-xl px-4 py-3 text-lg font-semibold text-neutral-800 hover:bg-red-50 hover:text-buet-red">{label}</Link>)}<div className="mt-4 grid grid-cols-2 gap-3 border-t pt-5"><Link href="/equipment" onClick={() => setOpen(false)} className="rounded-full border border-neutral-300 px-4 py-3 text-center text-sm font-bold">Equipment</Link><Link href="/projects/start" onClick={() => setOpen(false)} className="rounded-full bg-buet-red px-4 py-3 text-center text-sm font-bold text-white">Start a project</Link></div></div></nav>}
     </header>
   );
 }

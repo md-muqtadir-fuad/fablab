@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 export function generateStaticParams() {
   return mockEquipment.map(({ id }) => ({ id }));
 }
+export const dynamicParams = false;
 
 export default async function EquipmentDetail({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -21,7 +22,7 @@ export default async function EquipmentDetail({ params }: { params: Promise<{ id
         <Link href="/equipment" className="text-sm font-medium text-buet-red hover:underline">← Equipment catalogue</Link>
         <div className="mt-6 grid overflow-hidden border border-neutral-300 border-t-4 border-t-buet-red bg-white lg:grid-cols-2">
           <div className="relative min-h-80 bg-neutral-200">
-            <Image src={equipment.image} alt={equipment.name} fill className="object-cover" />
+            <Image src={equipment.image} alt={equipment.name} fill sizes="(max-width: 1024px) 100vw, 50vw" priority className="object-cover" />
           </div>
           <div className="p-7 lg:p-10">
             <Badge className="capitalize">{equipment.status.replace("-", " ")}</Badge>

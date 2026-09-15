@@ -2,24 +2,23 @@ import type {NextConfig} from 'next';
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  distDir: process.env.NEXT_DIST_DIR || '.next',
+  serverExternalPackages: ['better-sqlite3'],
+  images: {unoptimized: true},
+  async headers() {
+    return [{source:'/:path*',headers:[
+      {key:'X-Content-Type-Options',value:'nosniff'},
+      {key:'X-Frame-Options',value:'DENY'},
+      {key:'Referrer-Policy',value:'strict-origin-when-cross-origin'},
+      {key:'Permissions-Policy',value:'camera=(), microphone=(), geolocation=()'},
+    ]}];
+  },
   typescript: {
     ignoreBuildErrors: false,
   },
-  // Allow access to remote image placeholder.
-  images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'picsum.photos',
-        port: '',
-        pathname: '/**', // This allows any path under the hostname
-      },
-    ],
-  },
   output: 'standalone',
   webpack: (config, {dev}) => {
-    // HMR is disabled in AI Studio via DISABLE_HMR env var.
-    // Do not modifyâfile watching is disabled to prevent flickering during agent edits.
+    // File watching is disabled when the host explicitly requests it.
     if (dev && process.env.DISABLE_HMR === 'true') {
       config.watchOptions = {
         ignored: /.*/,

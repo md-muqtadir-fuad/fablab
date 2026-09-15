@@ -1,6 +1,6 @@
 {
-  "name": "BUET FabLab",
-  "description": "BUET FabLab: Advanced digital fabrication, research, and innovation platform.",
+  "name": "Advanced Fabrication Lab",
+  "description": "Equipment, training, fabrication and research support at the Advanced Fabrication Lab.",
   "requestFramePermissions": [],
-  "majorCapabilities": [""]
+  "majorCapabilities": ["equipment booking", "training registration", "project and service requests"]
 }

@@ -1,78 +1,78 @@
-import Link from 'next/link';
+import Image from "next/image";
+import Link from "next/link";
+
+const partners = [
+  { name: "BUET", full: "Bangladesh University of Engineering and Technology", src: "/logos/buet.png", href: "https://www.buet.ac.bd/" },
+  { name: "UGC", full: "University Grants Commission of Bangladesh", src: "/logos/ugc.svg", href: "https://ugc.gov.bd/" },
+  { name: "World Bank", full: "World Bank", src: "/logos/world-bank.svg", href: "https://www.worldbank.org/" },
+  { name: "HEAT", full: "Higher Education Acceleration and Transformation", src: "/logos/heat.svg", href: "https://heat.ugc.gov.bd/" },
+];
 
 export default function Footer() {
   return (
-    <footer className="bg-buet-red-dark text-white pt-16 pb-8 border-t-4 border-buet-red mt-auto">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
-          {/* Brand & Contact */}
+    <footer className="mt-auto border-t-4 border-buet-red bg-[#2b060d] pb-8 pt-16 text-white">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mb-12 grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4">
           <div className="space-y-4">
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-buet-red rounded flex items-center justify-center text-white font-bold">
-                F
-              </div>
-              <span className="font-bold text-lg">BUET FabLab</span>
-            </div>
-            <p className="text-sm text-neutral-400">
-              Advanced digital fabrication, research, and innovation platform at the Bangladesh University of Engineering and Technology.
-            </p>
-            <div className="text-sm text-neutral-400 pt-2 space-y-1">
+            <Link href="/" className="flex items-center gap-3" aria-label="Advanced Fabrication Lab home">
+              <span className="flex h-12 w-12 items-center justify-center rounded-lg bg-white p-1.5"><Image src="/logos/advanced-fabrication-lab.png" alt="" width={36} height={44} className="h-10 w-auto object-contain" /></span>
+              <span className="font-bold">Advanced Fabrication Lab</span>
+            </Link>
+            <p className="text-sm leading-6 text-white/85">Digital fabrication, research and engineering support at Bangladesh University of Engineering and Technology.</p>
+            <address className="space-y-1 text-sm not-italic text-white/85">
               <p>BUET Campus, Palashi</p>
               <p>Dhaka 1000, Bangladesh</p>
-              <p className="mt-2">Email: info@fablab.buet.ac.bd</p>
-              <p>Phone: +880 2 55167100</p>
-            </div>
+            </address>
+            <Link href="/consultation" className="inline-block text-sm font-semibold underline underline-offset-4">Contact the FabLab team</Link>
           </div>
 
-          {/* Quick Links */}
-          <div>
-            <h3 className="font-semibold text-neutral-200 mb-4 tracking-wide uppercase text-sm">Explore</h3>
-            <ul className="space-y-3 text-sm text-neutral-400">
-              <li><Link href="/equipment" className="hover:text-white transition-colors">Equipment Catalogue</Link></li>
-              <li><Link href="/facilities" className="hover:text-white transition-colors">Facilities</Link></li>
-              <li><Link href="/research/themes" className="hover:text-white transition-colors">Research Themes</Link></li>
-              <li><Link href="/projects" className="hover:text-white transition-colors">Project Gallery</Link></li>
-              <li><Link href="/training" className="hover:text-white transition-colors">Training Courses</Link></li>
-            </ul>
-          </div>
+          <FooterLinks title="Explore" links={[
+            ["Equipment catalogue", "/equipment"], ["Facilities", "/facilities"], ["Research themes", "/research/themes"], ["Project gallery", "/projects"], ["Training courses", "/training"],
+          ]} />
+          <FooterLinks title="Services" links={[
+            ["Book a machine", "/equipment"], ["Start a project", "/projects/start"], ["Fabrication services", "/services/fabrication"], ["Design consultation", "/consultation"], ["Industry partnerships", "/collaborate/industry"],
+          ]} />
 
-          {/* Services */}
           <div>
-            <h3 className="font-semibold text-neutral-200 mb-4 tracking-wide uppercase text-sm">Services</h3>
-            <ul className="space-y-3 text-sm text-neutral-400">
-              <li><Link href="/equipment" className="hover:text-white transition-colors">Book a Machine</Link></li>
-              <li><Link href="/projects/start" className="hover:text-white transition-colors">Start a Project</Link></li>
-              <li><Link href="/services/fabrication" className="hover:text-white transition-colors">Fabrication Services</Link></li>
-              <li><Link href="/consultation" className="hover:text-white transition-colors">Design Consultation</Link></li>
-              <li><Link href="/collaborate/industry" className="hover:text-white transition-colors">Industry Partnerships</Link></li>
-            </ul>
-          </div>
-
-          {/* Operating Hours */}
-          <div>
-            <h3 className="font-semibold text-neutral-200 mb-4 tracking-wide uppercase text-sm">Operating Hours</h3>
-            <ul className="space-y-3 text-sm text-neutral-400">
-              <li className="flex justify-between"><span>Sunday - Wednesday:</span> <span>9:00 AM - 5:00 PM</span></li>
-              <li className="flex justify-between"><span>Thursday:</span> <span>9:00 AM - 1:00 PM</span></li>
-              <li className="flex justify-between text-neutral-500"><span>Friday - Saturday:</span> <span>Closed</span></li>
-            </ul>
-            <div className="mt-6">
-              <Link href="/visit" className="text-sm text-white hover:text-white/75 transition-colors underline underline-offset-4">
-                Request a Visit
-              </Link>
-            </div>
+            <h2 className="mb-4 text-sm font-semibold uppercase tracking-wide">Operating hours</h2>
+            <dl className="space-y-3 text-sm text-white/85">
+              <div className="flex flex-wrap justify-between gap-2"><dt>Sunday–Wednesday</dt><dd>9:00–17:00</dd></div>
+              <div className="flex flex-wrap justify-between gap-2"><dt>Thursday</dt><dd>9:00–13:00</dd></div>
+              <div className="flex flex-wrap justify-between gap-2"><dt>Friday–Saturday</dt><dd>Closed</dd></div>
+            </dl>
+            <Link href="/visit" className="mt-6 inline-block text-sm font-semibold underline underline-offset-4">Request a visit</Link>
           </div>
         </div>
 
-        <div className="border-t border-neutral-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-neutral-500">
-          <p>© {new Date().getFullYear()} BUET FabLab. All rights reserved.</p>
-          <div className="flex gap-6">
-            <Link href="/policies/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
-            <Link href="/policies/terms" className="hover:text-white transition-colors">Terms of Use</Link>
-            <Link href="/accessibility" className="hover:text-white transition-colors">Accessibility</Link>
+        <section aria-label="Institutional partners" className="border-t border-white/20 py-12">
+          <div className="mb-8 flex items-center gap-5">
+            <span className="h-px flex-1 bg-white/15" />
+            <h2 className="text-center text-xs font-bold uppercase tracking-[.2em] text-white/65">Institutions &amp; programme partners</h2>
+            <span className="h-px flex-1 bg-white/15" />
+          </div>
+          <div className="grid grid-cols-2 border-y border-white/15 sm:grid-cols-4">
+            {partners.map((partner) => (
+              <a key={partner.name} href={partner.href} target="_blank" rel="noopener noreferrer" className="group flex min-w-0 flex-col items-center justify-center gap-5 border-b border-r border-white/15 px-3 py-8 transition-colors hover:bg-white/[.06] sm:border-b-0 sm:py-10 last:border-r-0" aria-label={`${partner.full} (opens in a new tab)`}>
+                <span className="relative h-16 w-full max-w-44 transition duration-300 group-hover:-translate-y-1 sm:h-20"><Image src={partner.src} alt={`${partner.name} logo`} fill sizes="(max-width: 640px) 40vw, 176px" className="object-contain brightness-0 invert opacity-80 transition group-hover:opacity-100" /></span>
+                <span className="text-center text-xs font-bold uppercase tracking-[.14em] text-white/60 transition group-hover:text-white">{partner.name}</span>
+              </a>
+            ))}
+          </div>
+        </section>
+
+        <div className="flex flex-col items-center justify-between gap-4 border-t border-white/25 pt-8 text-xs text-white/85 md:flex-row">
+          <p>© {new Date().getFullYear()} Advanced Fabrication Lab. All rights reserved.</p>
+          <div className="flex flex-wrap justify-center gap-6">
+            <Link href="/policies/privacy" className="hover:text-white">Privacy</Link>
+            <Link href="/policies/terms" className="hover:text-white">Terms</Link>
+            <Link href="/accessibility" className="hover:text-white">Accessibility</Link>
           </div>
         </div>
       </div>
     </footer>
   );
+}
+
+function FooterLinks({ title, links }: { title: string; links: [string, string][] }) {
+  return <div><h2 className="mb-4 text-sm font-semibold uppercase tracking-wide">{title}</h2><ul className="space-y-3 text-sm text-white/85">{links.map(([label, href]) => <li key={href}><Link href={href} className="hover:text-white hover:underline">{label}</Link></li>)}</ul></div>;
 }

@@ -12,7 +12,7 @@ export type PageTemplateProps = {
 };
 
 export function PageTemplate({
-  eyebrow = "BUET FabLab",
+  eyebrow = "Advanced Fabrication Lab",
   title,
   intro,
   sections,
@@ -21,15 +21,17 @@ export function PageTemplate({
 }: PageTemplateProps) {
   return (
     <>
-      <section className="border-b-4 border-[#a98b59] bg-buet-red-dark text-white">
-        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
-          <p className="mb-4 text-sm font-semibold uppercase tracking-[0.18em] text-white/70">{eyebrow}</p>
-          <h1 className="max-w-4xl text-4xl font-bold tracking-tight md:text-6xl">{title}</h1>
-          <p className="mt-6 max-w-3xl text-lg leading-8 text-white/80">{intro}</p>
+      <section className="relative overflow-hidden bg-[#2b060d] text-white">
+        <div className="absolute -right-28 -top-40 h-[520px] w-[520px] rounded-full border-[100px] border-white/[.035]" />
+        <div className="absolute bottom-0 right-0 h-20 w-1/3 bg-buet-red [clip-path:polygon(20%_0,100%_0,100%_100%,0_100%)]" />
+        <div className="section-shell relative py-20 lg:py-28">
+          <p className="mb-5 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.2em] text-[#f1c77a]"><span className="h-px w-9 bg-[#f1c77a]" />{eyebrow}</p>
+          <h1 className="max-w-5xl text-5xl font-bold leading-[1.02] tracking-[-.035em] md:text-7xl">{title}</h1>
+          <p className="mt-7 max-w-3xl text-lg leading-8 text-white/75 sm:text-xl">{intro}</p>
           {(primary || secondary) && (
             <div className="mt-8 flex flex-wrap gap-3">
               {primary && (
-                <Button size="lg" className="bg-white text-buet-red hover:bg-neutral-100" asChild>
+                <Button size="lg" className="bg-white text-buet-red shadow-none hover:bg-[#f5e9d5]" asChild>
                   <Link href={primary.href}>{primary.label}<ArrowRight className="ml-2 h-4 w-4" /></Link>
                 </Button>
               )}
@@ -42,24 +44,27 @@ export function PageTemplate({
           )}
         </div>
       </section>
-      <section className="bg-[#faf8f4] py-16 lg:py-20">
-        <div className="mx-auto grid max-w-7xl gap-6 px-4 sm:px-6 md:grid-cols-2 lg:px-8">
-          {sections.map((section) => (
-            <article key={section.title} className="border border-neutral-300 border-t-4 border-t-buet-red bg-white p-7">
-              <h2 className="text-xl font-bold text-buet-red-dark">{section.title}</h2>
-              <p className="mt-3 leading-7 text-neutral-600">{section.text}</p>
+      <section className="py-20 lg:py-28">
+        <div className="section-shell">
+          <div className="border-y border-neutral-300">
+          {sections.map((section, index) => (
+            <article key={section.title} className="grid gap-5 border-b border-neutral-300 py-9 last:border-b-0 md:grid-cols-[90px_.8fr_1.2fr] md:gap-10 md:py-12">
+              <span className="font-serif text-3xl text-buet-red/35">0{index + 1}</span>
+              <h2 className="text-2xl font-bold leading-tight text-buet-red-dark">{section.title}</h2>
+              <div><p className="leading-7 text-neutral-600">{section.text}</p>
               {section.items && (
                 <ul className="mt-5 space-y-3">
                   {section.items.map((item) => (
                     <li key={item} className="flex gap-3 text-sm text-neutral-700">
-                      <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-buet-red" />
+                      <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-buet-red" />
                       {item}
                     </li>
                   ))}
                 </ul>
-              )}
+              )}</div>
             </article>
           ))}
+          </div>
         </div>
       </section>
     </>
