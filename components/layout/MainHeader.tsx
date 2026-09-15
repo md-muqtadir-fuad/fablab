@@ -21,7 +21,7 @@ export default function MainHeader() {
           <Image src="/logos/advanced-fabrication-lab.png" alt="" width={48} height={58} priority className="h-[54px] w-11 object-contain" />
           <span className="border-l border-neutral-200 pl-3">
             <span className="block font-serif text-xl font-bold leading-none tracking-tight text-buet-red-dark">Advanced Fabrication Lab</span>
-            <span className="mt-1.5 block text-[10px] font-bold uppercase tracking-[.18em] text-neutral-500">BUET · Dhaka</span>
+            <span className="mt-1.5 block text-[10px] font-bold uppercase tracking-[.18em] text-neutral-500">IAT, BUET</span>
           </span>
         </Link>
 
