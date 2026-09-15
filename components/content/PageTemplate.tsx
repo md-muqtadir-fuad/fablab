@@ -6,7 +6,12 @@ export type PageTemplateProps = {
   eyebrow?: string;
   title: string;
   intro: string;
-  sections: Array<{ title: string; text: string; items?: string[] }>;
+  sections: Array<{
+    title: string;
+    text: string;
+    items?: string[];
+    link?: { label: string; href: string };
+  }>;
   primary?: { label: string; href: string };
   secondary?: { label: string; href: string };
 };
@@ -61,6 +66,11 @@ export function PageTemplate({
                     </li>
                   ))}
                 </ul>
+              )}
+              {section.link && (
+                <a href={section.link.href} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-buet-red hover:underline">
+                  {section.link.label}<ArrowRight className="h-4 w-4" />
+                </a>
               )}</div>
             </article>
           ))}

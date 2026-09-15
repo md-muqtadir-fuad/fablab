@@ -29,7 +29,7 @@ export default function Home() {
         <div className="absolute bottom-0 right-0 h-32 w-[42%] bg-buet-red/90 [clip-path:polygon(18%_0,100%_0,100%_100%,0_100%)]" />
         <div className="section-shell relative flex min-h-[570px] items-start pb-24 pt-16 sm:pt-20 lg:min-h-[610px] lg:pt-20">
           <div className="max-w-4xl">
-            <p className="mb-6 flex items-center gap-3 text-xs font-bold uppercase tracking-[.22em] text-white/75"><span className="h-px w-10 bg-[#d9b36c]" /> Bangladesh University of Engineering and Technology</p>
+            <p className="mb-6 text-xs font-bold uppercase tracking-[.22em] text-white/75">Bangladesh University of Engineering and Technology</p>
             <h1 className="max-w-[850px] text-5xl font-bold leading-[.98] tracking-[-.04em] sm:text-6xl lg:text-[88px]">Where engineering<br /><span className="text-[#f1c77a]">takes shape.</span></h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-white/80 sm:text-xl">A shared laboratory for students, researchers, and industry teams to design, fabricate, test, and improve physical ideas.</p>
             <div className="mt-8 flex flex-wrap gap-3">
