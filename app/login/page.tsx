@@ -10,7 +10,7 @@ export default function LoginPage() {
     try { const response=await fetch("/api/auth",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({...values,mode})}); const result=await response.json(); if(!response.ok) throw new Error(result.error); const next=new URLSearchParams(window.location.search).get("next"); window.location.assign(next && /^\/(?!\/)[a-zA-Z0-9/_-]*$/.test(next) ? next : "/dashboard"); }
     catch(error) {setError(error instanceof Error ? error.message : "Unable to sign in. Try again.");setBusy(false);}
   }
-  return <div className="flex flex-1 items-center justify-center px-4 py-16"><div className="w-full max-w-md border border-neutral-300 border-t-4 border-t-buet-red bg-white p-8">
+  return <div className="flex flex-1 items-center justify-center px-4 py-12 sm:py-16"><div className="w-full max-w-md border border-neutral-300 border-t-4 border-t-buet-red bg-white p-5 sm:p-8">
     <p className="text-sm font-semibold uppercase tracking-wider text-buet-red">Member access</p><h1 className="mt-2 text-3xl font-bold text-buet-red-dark">{mode==="login" ? "Sign in to FabLab" : "Create your account"}</h1><p className="mt-3 text-neutral-600">Manage your bookings and follow the progress of your requests.</p>
     <form className="mt-7 space-y-5" onSubmit={submit}>
       {mode==="register" && <label className="form-label">Full name<input className="form-field" name="name" autoComplete="name" required minLength={2} maxLength={100}/></label>}

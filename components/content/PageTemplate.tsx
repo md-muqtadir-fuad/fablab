@@ -29,10 +29,10 @@ export function PageTemplate({
       <section className="relative overflow-hidden bg-[#2b060d] text-white">
         <div className="absolute -right-28 -top-40 h-[520px] w-[520px] rounded-full border-[100px] border-white/[.035]" />
         <div className="absolute bottom-0 right-0 h-20 w-1/3 bg-buet-red [clip-path:polygon(20%_0,100%_0,100%_100%,0_100%)]" />
-        <div className="section-shell relative py-20 lg:py-28">
-          <p className="mb-5 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.2em] text-[#f1c77a]"><span className="h-px w-9 bg-[#f1c77a]" />{eyebrow}</p>
-          <h1 className="max-w-5xl text-5xl font-bold leading-[1.02] tracking-[-.035em] md:text-7xl">{title}</h1>
-          <p className="mt-7 max-w-3xl text-lg leading-8 text-white/75 sm:text-xl">{intro}</p>
+        <div className="section-shell relative py-14 sm:py-20 lg:py-28">
+          <p className="mb-5 text-xs font-bold uppercase tracking-[0.2em] text-[#f1c77a]">{eyebrow}</p>
+          <h1 className="max-w-5xl text-4xl font-bold leading-[1.05] tracking-[-.03em] sm:text-5xl md:text-7xl">{title}</h1>
+          <p className="mt-6 max-w-3xl text-base leading-7 text-white/75 sm:mt-7 sm:text-xl sm:leading-8">{intro}</p>
           {(primary || secondary) && (
             <div className="mt-8 flex flex-wrap gap-3">
               {primary && (
@@ -49,11 +49,11 @@ export function PageTemplate({
           )}
         </div>
       </section>
-      <section className="py-20 lg:py-28">
+      <section className="py-14 sm:py-20 lg:py-28">
         <div className="section-shell">
           <div className="border-y border-neutral-300">
           {sections.map((section, index) => (
-            <article key={section.title} className="grid gap-5 border-b border-neutral-300 py-9 last:border-b-0 md:grid-cols-[90px_.8fr_1.2fr] md:gap-10 md:py-12">
+            <article key={section.title} className="grid gap-4 border-b border-neutral-300 py-8 last:border-b-0 md:grid-cols-[90px_.8fr_1.2fr] md:gap-10 md:py-12">
               <span className="font-serif text-3xl text-buet-red/35">0{index + 1}</span>
               <h2 className="text-2xl font-bold leading-tight text-buet-red-dark">{section.title}</h2>
               <div><p className="leading-7 text-neutral-600">{section.text}</p>

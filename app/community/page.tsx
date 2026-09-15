@@ -1,2 +1,5 @@
-import { ContentPage } from "@/components/content/ContentPage";
-export default function Page() { return <ContentPage page="community" />; }
+import { redirect } from "next/navigation";
+
+export default function Page() {
+  redirect("/explore");
+}

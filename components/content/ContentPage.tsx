@@ -4,6 +4,7 @@ const pages: Record<string, PageTemplateProps> = {
   explore: { title: "Explore the lab", intro: "Find the machines, workspaces, and technical support available for your work.", primary: { label: "Browse equipment", href: "/equipment" }, secondary: { label: "Plan a visit", href: "/visit" }, sections: [
     { title: "Digital fabrication", text: "Build precise parts using additive and subtractive processes.", items: ["FDM and resin 3D printing", "Laser cutting and engraving", "CNC machining"] },
     { title: "Electronics and automation", text: "Prototype connected devices and automated systems.", items: ["PCB prototyping", "Embedded systems benches", "Collaborative robotics"] },
+    { title: "Community and events", text: "Meet other makers, exchange practical knowledge, and take part in build sessions, technical talks, demonstrations, and project showcases." },
   ]},
   make: { title: "Make at the Advanced Fabrication Lab", intro: "A clear path from design review to safe machine access and fabrication.", primary: { label: "Book a machine", href: "/equipment" }, secondary: { label: "Request fabrication", href: "/services/fabrication" }, sections: [
     { title: "Self-service making", text: "Trained members can reserve eligible machines and work with technician support.", items: ["Choose suitable equipment", "Complete required training", "Reserve an available session"] },
@@ -38,10 +39,6 @@ const pages: Record<string, PageTemplateProps> = {
   training: { title: "Training and certification", intro: "Short, practical courses prepare members to work independently and safely.", primary: { label: "Register for training", href: "/training/register" }, sections: [
     { title: "New member orientation", text: "Lab rules, emergency procedures, material handling, and shared-workspace practice." },
     { title: "Machine pathways", text: "Progress from introductory laser and 3D printing courses to advanced CNC and robotics certification." },
-  ]},
-  community: { title: "A community of practical innovators", intro: "Meet peers, share knowledge, and build projects that matter.", primary: { label: "Start a project", href: "/projects/start" }, secondary: { label: "Visit the lab", href: "/visit" }, sections: [
-    { title: "Students and makers", text: "Develop course projects, thesis prototypes, competition entries, and independent ideas." },
-    { title: "Events and showcases", text: "Join build nights, technical talks, demonstrations, and project showcases throughout the year." },
   ]},
   collaborate: { title: "Work with the Advanced Fabrication Lab", intro: "Get engineering support, facility access, and a clear plan for your project.", primary: { label: "Industry partnerships", href: "/collaborate/industry" }, secondary: { label: "Research collaboration", href: "/research/collaborate" }, sections: [
     { title: "For researchers", text: "Develop experimental hardware, new processes, and competitive grant proposals." },

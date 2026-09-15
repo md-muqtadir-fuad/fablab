@@ -11,6 +11,7 @@ import Link from "next/link";
 
 export default function EquipmentCatalogue() {
   const [sort, setSort] = useState("name-asc");
+  const [filtersOpen, setFiltersOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [categories, setCategories] = useState<string[]>([]);
   const [selectedFacilities, setSelectedFacilities] = useState<string[]>([]);
@@ -46,10 +47,14 @@ export default function EquipmentCatalogue() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12 relative z-10">
+        <button type="button" aria-expanded={filtersOpen} aria-controls="equipment-filters" onClick={() => setFiltersOpen(!filtersOpen)} className="mb-4 flex min-h-12 w-full items-center justify-between border border-neutral-200 border-t-4 border-t-buet-red bg-white px-4 text-left font-bold text-buet-red-dark lg:hidden">
+          <span className="flex items-center gap-2"><Filter className="h-4 w-4" /> Filter equipment</span>
+          <span className="text-xs font-semibold text-neutral-500">{filtersOpen ? "Close" : `${categories.length + selectedFacilities.length + statuses.length} selected`}</span>
+        </button>
         <div className="flex flex-col lg:flex-row gap-8">
           
           {/* Filters Sidebar */}
-          <aside className="w-full lg:w-72 shrink-0">
+          <aside id="equipment-filters" className={`${filtersOpen ? "block" : "hidden"} w-full shrink-0 lg:block lg:w-72`}>
             <Card className="sticky top-28 overflow-hidden shadow-[0_18px_50px_rgba(60,34,25,.10)]">
               <div className="flex items-center justify-between border-b bg-[#f4efe7] p-5">
                 <h2 className="font-semibold flex items-center gap-2">

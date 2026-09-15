@@ -10,12 +10,12 @@ const partners = [
 
 export default function Footer() {
   return (
-    <footer className="mt-auto border-t-4 border-buet-red bg-[#2b060d] pb-8 pt-16 text-white">
+    <footer className="mt-auto border-t-4 border-buet-red bg-[#2b060d] pb-7 pt-12 text-white sm:pt-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-12 grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4">
-          <div className="space-y-4">
+        <div className="mb-10 grid grid-cols-2 gap-x-6 gap-y-10 md:mb-12 md:grid-cols-2 md:gap-12 lg:grid-cols-4">
+          <div className="col-span-2 space-y-4 md:col-span-1">
             <Link href="/" className="flex items-center gap-3" aria-label="Advanced Fabrication Lab home">
-              <span className="flex h-12 w-12 items-center justify-center rounded-lg bg-white p-1.5"><Image src="/logos/advanced-fabrication-lab.png" alt="" width={36} height={44} className="h-10 w-auto object-contain" /></span>
+              <Image src="/logos/fab-logo-white.png" alt="" width={48} height={48} className="h-12 w-12 object-contain" />
               <span className="font-bold">Advanced Fabrication Lab</span>
             </Link>
             <p className="text-sm leading-6 text-white/85">Digital fabrication, research and engineering support at Bangladesh University of Engineering and Technology.</p>
@@ -33,7 +33,7 @@ export default function Footer() {
             ["Book a machine", "/equipment"], ["Start a project", "/projects/start"], ["Fabrication services", "/services/fabrication"], ["Design consultation", "/consultation"], ["Industry partnerships", "/collaborate/industry"],
           ]} />
 
-          <div>
+          <div className="col-span-2 md:col-span-1">
             <h2 className="mb-4 text-sm font-semibold uppercase tracking-wide">Operating hours</h2>
             <dl className="space-y-3 text-sm text-white/85">
               <div className="flex flex-wrap justify-between gap-2"><dt>Sunday–Wednesday</dt><dd>9:00–17:00</dd></div>

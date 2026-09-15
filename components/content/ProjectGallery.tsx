@@ -13,9 +13,9 @@ export function ProjectGallery() {
 
   return (
     <div className="bg-white pb-24">
-      <section className="bg-[#2b060d] py-20 text-white lg:py-24">
+      <section className="bg-[#2b060d] py-14 text-white sm:py-20 lg:py-24">
         <div className="section-shell flex flex-col justify-between gap-8 md:flex-row md:items-end">
-          <div><p className="text-xs font-bold uppercase tracking-[.2em] text-[#f1c77a]">Project gallery</p><h1 className="mt-5 text-5xl font-bold tracking-tight sm:text-6xl">Made by our community.</h1><p className="mt-5 max-w-2xl text-lg leading-8 text-white/70">Work by students, researchers, and industry teams built through the lab.</p></div>
+          <div><p className="text-xs font-bold uppercase tracking-[.2em] text-[#f1c77a]">Project gallery</p><h1 className="mt-4 text-4xl font-bold tracking-tight sm:mt-5 sm:text-6xl">Made by our community.</h1><p className="mt-4 max-w-2xl text-base leading-7 text-white/70 sm:mt-5 sm:text-lg sm:leading-8">Work by students, researchers, and industry teams built through the lab.</p></div>
           <Button className="w-fit bg-white text-buet-red shadow-none hover:bg-[#f5e9d5]" asChild><Link href="/projects/start">Start a project <ArrowRight /></Link></Button>
         </div>
       </section>
