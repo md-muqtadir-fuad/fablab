@@ -6,12 +6,13 @@ import { ArrowUpRight, Menu, Search, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
-const navigation = [
+const baseNavigation = [
   ["Explore", "/explore"], ["Make", "/make"], ["Learn", "/learn"], ["Research", "/research"],
   ["Collaborate", "/collaborate"], ["About", "/about"],
 ];
 
-export default function MainHeader() {
+export default function MainHeader({ showNotices = false }: { showNotices?: boolean }) {
+  const navigation = showNotices ? [...baseNavigation.slice(0, 5), ["Notices", "/notices"], ...baseNavigation.slice(5)] : baseNavigation;
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   return (

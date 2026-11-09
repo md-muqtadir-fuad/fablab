@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { contentEnabled } from "@/lib/features";
 
 const partners = [
   { name: "BUET", full: "Bangladesh University of Engineering and Technology", src: "/logos/buet.png", href: "https://www.buet.ac.bd/" },
@@ -28,6 +29,7 @@ export default function Footer() {
 
           <FooterLinks title="Explore" links={[
             ["Equipment catalogue", "/equipment"], ["Facilities", "/facilities"], ["Research themes", "/research/themes"], ["Project gallery", "/projects"], ["Training courses", "/training"],
+            ...(contentEnabled() ? [["Notice board", "/notices"] as [string, string]] : []),
           ]} />
           <FooterLinks title="Services" links={[
             ["Book a machine", "/equipment"], ["Start a project", "/projects/start"], ["Fabrication services", "/services/fabrication"], ["Design consultation", "/consultation"], ["Industry partnerships", "/collaborate/industry"],

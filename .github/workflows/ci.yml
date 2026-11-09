@@ -1,0 +1,51 @@
+# Checks every pull request (and every push to master) automatically on GitHub.
+# The result appears on the pull request as a green tick or a red cross,
+# so nobody merges code that does not build or breaks a test.
+name: Checks
+
+on:
+  pull_request:
+  push:
+    branches: [master]
+
+concurrency:
+  group: checks-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install packages
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Type check
+        run: npm run typecheck
+
+      - name: Build (notice board on)
+        run: npm run build
+        env:
+          NEXT_DIST_DIR: .next-verify
+          ENABLE_ADMIN: "true"
+
+      - name: Browser tests
+        run: npx playwright test --reporter=line
+
+      - name: Keep screenshots of failed tests
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: test-results/
+          retention-days: 7

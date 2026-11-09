@@ -1,14 +1,14 @@
-import { db } from "./db";
+import { get, run } from "./db";
 export class HttpError extends Error { constructor(public status: number, message: string) { super(message); } }
 export function checkOrigin(request: Request) {
   const origin = request.headers.get("origin");
   if (!origin || origin !== new URL(process.env.APP_URL || request.url).origin) throw new HttpError(403, "Request origin was not accepted. Refresh the page and try again.");
 }
-export function rateLimit(key: string, limit = 20) {
+export async function rateLimit(key: string, limit = 20) {
   const now = Date.now();
-  db().prepare("DELETE FROM rate_limits WHERE expires < ?").run(now);
-  const row = db().prepare("INSERT INTO rate_limits VALUES (?,1,?) ON CONFLICT(key) DO UPDATE SET count=CASE WHEN expires<? THEN 1 ELSE count+1 END, expires=CASE WHEN expires<? THEN excluded.expires ELSE expires END RETURNING count").get(key, now + 15 * 60000, now, now) as { count: number };
-  if (row.count > limit) throw new HttpError(429, "Too many attempts. Please try again in 15 minutes.");
+  await run("DELETE FROM rate_limits WHERE expires < ?", [now]);
+  const row = await get<{ count: number }>("INSERT INTO rate_limits VALUES (?,1,?) ON CONFLICT(key) DO UPDATE SET count=CASE WHEN expires<? THEN 1 ELSE count+1 END, expires=CASE WHEN expires<? THEN excluded.expires ELSE expires END RETURNING count", [key, now + 15 * 60000, now, now]);
+  if (Number(row?.count) > limit) throw new HttpError(429, "Too many attempts. Please try again in 15 minutes.");
 }
 export async function body(request: Request) {
   const text = new TextDecoder().decode(await readLimited(request, 30000));
