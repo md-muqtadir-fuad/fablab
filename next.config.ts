@@ -3,7 +3,11 @@ import type {NextConfig} from 'next';
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   distDir: process.env.NEXT_DIST_DIR || '.next',
-  serverExternalPackages: ['better-sqlite3'],
+  serverExternalPackages: ['@libsql/client', 'libsql'],
+  experimental: {
+    // Notice attachments are up to 4 MB; leave room for the form fields.
+    serverActions: { bodySizeLimit: '5mb' },
+  },
   images: {unoptimized: true},
   async headers() {
     return [{source:'/:path*',headers:[

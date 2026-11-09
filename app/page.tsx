@@ -4,6 +4,10 @@ import { ArrowRight, BookOpen, CalendarDays, Cpu, Layers3, Microscope, PenTool, 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { equipmentPreview, featuredProjects } from "@/data/fixtures/homepage";
+import { LatestNotices } from "@/components/notices/LatestNotices";
+
+// Refresh the homepage at most every 5 minutes (new notices also refresh it straight away).
+export const revalidate = 300;
 
 const quickLinks = [
   { icon: Settings, label: "Book equipment", href: "/equipment" },
@@ -43,6 +47,8 @@ export default function Home() {
       <section className="relative z-10 -mt-12 pb-6"><div className="section-shell"><div className="grid overflow-hidden border border-neutral-200 border-t-4 border-t-buet-red bg-white sm:grid-cols-2 lg:grid-cols-4">
         {quickLinks.map((item) => <Link key={item.href} href={item.href} className="group flex items-center gap-4 border-b border-neutral-200 p-5 transition hover:bg-[#fff9f0] sm:p-6 lg:border-b-0 lg:border-r last:border-0"><span className="flex h-10 w-10 shrink-0 items-center justify-center border border-red-100 text-buet-red transition group-hover:border-buet-red group-hover:bg-buet-red group-hover:text-white"><item.icon className="h-5 w-5" /></span><span className="min-w-0 flex-1 text-sm font-bold text-buet-red-dark">{item.label}</span><ArrowRight className="h-4 w-4 shrink-0 text-neutral-400 transition group-hover:translate-x-1 group-hover:text-buet-red" /></Link>)}
       </div></div></section>
+
+      <LatestNotices />
 
       <section className="py-16 sm:py-20 lg:py-28"><div className="section-shell grid gap-10 lg:grid-cols-[.75fr_1.25fr] lg:gap-20">
         <div className="lg:sticky lg:top-32 lg:self-start"><p className="eyebrow">Capabilities</p><h2 className="mt-5 text-4xl font-bold leading-tight tracking-tight text-buet-red-dark sm:text-5xl">One lab. Many ways to make.</h2><p className="mt-6 max-w-md text-lg leading-8 text-neutral-600">Move from CAD to a tested part with equipment, training, and practical support in one place.</p><Button variant="link" className="mt-5 h-auto p-0" asChild><Link href="/facilities">See all facilities <ArrowRight /></Link></Button></div>

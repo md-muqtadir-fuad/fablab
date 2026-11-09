@@ -9,5 +9,7 @@ coverage/
 .env*
 !.env.example
 .data/
+# Files uploaded through the admin panel (notice PDFs, photos). Back these up with the database.
+storage/
 test-results/
 playwright-report/
